@@ -75,7 +75,6 @@ define(['exports', 'aurelia-dependency-injection', 'aurelia-event-aggregator', '
 			var options = arguments.length <= 0 || arguments[0] === undefined ? defaultOptions : arguments[0];
 
 			this._options = Object.assign({}, defaultOptions, options);
-			console.log(this._options);
 			if (!this._initialized) {
 				var errorMessage = "Analytics must be initialized before use.";
 				this._log('error', errorMessage);
@@ -115,7 +114,7 @@ define(['exports', 'aurelia-dependency-injection', 'aurelia-event-aggregator', '
 			}
 
 			this._eventAggregator.subscribe(this._options.pageTracking.triggerEvent, function (payload) {
-				if (!payload.instruction.config.title) {
+				if (payload.instruction.config.title) {
 					_this._trackPage(payload.instruction.fragment, payload.instruction.config.title);
 				} else {
 					_this._eventAggregator.subscribe(_this._options.pageTracking.triggerCustomEvent, function (payload) {

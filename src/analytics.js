@@ -102,7 +102,6 @@ export class Analytics {
 
 	attach(options = defaultOptions) {
 		this._options = Object.assign({}, defaultOptions, options);
-		console.log(this._options);
 		if(!this._initialized) {
 			const errorMessage = "Analytics must be initialized before use.";
 			this._log('error', errorMessage);
@@ -138,7 +137,7 @@ export class Analytics {
 		if(!this._options.pageTracking.enabled) { return; }
 
 		this._eventAggregator.subscribe(this._options.pageTracking.triggerEvent, payload => {
-			if (!payload.instruction.config.title) {
+			if (payload.instruction.config.title) {
 				this._trackPage(payload.instruction.fragment, payload.instruction.config.title);
 			} else {
 				this._eventAggregator.subscribe(this._options.pageTracking.triggerCustomEvent,
