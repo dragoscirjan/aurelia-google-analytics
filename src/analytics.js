@@ -101,6 +101,7 @@ export class Analytics {
 
 	attach(options = defaultOptions) {
 		this._options = Object.assign({}, defaultOptions, options);
+		console.log(this._options);
 		if(!this._initialized) {
 			const errorMessage = "Analytics must be initialized before use.";
 			this._log('error', errorMessage);

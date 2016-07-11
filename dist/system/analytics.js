@@ -82,6 +82,7 @@ System.register(['aurelia-dependency-injection', 'aurelia-event-aggregator', 'au
 					var options = arguments.length <= 0 || arguments[0] === undefined ? defaultOptions : arguments[0];
 
 					this._options = Object.assign({}, defaultOptions, options);
+					console.log(this._options);
 					if (!this._initialized) {
 						var errorMessage = "Analytics must be initialized before use.";
 						this._log('error', errorMessage);
