@@ -134,6 +134,7 @@ export class Analytics {
 
 	_attachPageTracker() {
 		if(!this._options.pageTracking.enabled) { return; }
+		console.log(this._options);
 
 		this._eventAggregator.subscribe(this._options.pageTracking.triggerEvent,
 			payload => this._trackPage(payload.instruction.fragment, payload.instruction.config.title));

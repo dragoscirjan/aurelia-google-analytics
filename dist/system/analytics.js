@@ -119,6 +119,7 @@ System.register(['aurelia-dependency-injection', 'aurelia-event-aggregator', 'au
 					if (!this._options.pageTracking.enabled) {
 						return;
 					}
+					console.log(this._options);
 
 					this._eventAggregator.subscribe(this._options.pageTracking.triggerEvent, function (payload) {
 						return _this._trackPage(payload.instruction.fragment, payload.instruction.config.title);
