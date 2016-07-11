@@ -39,6 +39,7 @@ const defaultOptions = {
 	},
 	pageTracking: {
 		triggerEvent: 'router:navigation:success',
+		triggerCustomEvent: 'on:page:activate',
 		enabled: false
 	},
 	clickTracking: {
@@ -135,10 +136,19 @@ export class Analytics {
 
 	_attachPageTracker() {
 		if(!this._options.pageTracking.enabled) { return; }
-		console.log(this._options);
 
-		this._eventAggregator.subscribe(this._options.pageTracking.triggerEvent,
-			payload => this._trackPage(payload.instruction.fragment, payload.instruction.config.title));
+		this._eventAggregator.subscribe(this._options.pageTracking.triggerEvent, payload => {
+			if (!payload.instruction.config.title) {
+				this._trackPage(payload.instruction.fragment, payload.instruction.config.title);
+			} else {
+				this._eventAggregator.subscribe(this._options.pageTracking.triggerCustomEvent,
+					payload => {
+						console.log(payload);
+						this._trackPage(payload.instruction.fragment, payload.instruction.config.title)
+					}
+				);
+			}
+		});
 	}
 
 	_log(level, message) {

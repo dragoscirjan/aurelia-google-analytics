@@ -12,6 +12,7 @@ define(['exports', 'aurelia-dependency-injection', 'aurelia-event-aggregator', '
 		},
 		pageTracking: {
 			triggerEvent: 'router:navigation:success',
+			triggerCustomEvent: 'on:page:activate',
 			enabled: false
 		},
 		clickTracking: {
@@ -112,10 +113,16 @@ define(['exports', 'aurelia-dependency-injection', 'aurelia-event-aggregator', '
 			if (!this._options.pageTracking.enabled) {
 				return;
 			}
-			console.log(this._options);
 
 			this._eventAggregator.subscribe(this._options.pageTracking.triggerEvent, function (payload) {
-				return _this._trackPage(payload.instruction.fragment, payload.instruction.config.title);
+				if (!payload.instruction.config.title) {
+					_this._trackPage(payload.instruction.fragment, payload.instruction.config.title);
+				} else {
+					_this._eventAggregator.subscribe(_this._options.pageTracking.triggerCustomEvent, function (payload) {
+						console.log(payload);
+						_this._trackPage(payload.instruction.fragment, payload.instruction.config.title);
+					});
+				}
 			});
 		};
 
