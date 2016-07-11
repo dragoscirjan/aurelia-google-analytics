@@ -11,6 +11,7 @@ define(['exports', 'aurelia-dependency-injection', 'aurelia-event-aggregator', '
 			enabled: true
 		},
 		pageTracking: {
+			triggerEvent: 'router:navigation:success',
 			enabled: false
 		},
 		clickTracking: {
@@ -111,7 +112,7 @@ define(['exports', 'aurelia-dependency-injection', 'aurelia-event-aggregator', '
 				return;
 			}
 
-			this._eventAggregator.subscribe('router:navigation:success', function (payload) {
+			this._eventAggregator.subscribe(this._options.pageTracking.triggerEvent, function (payload) {
 				return _this._trackPage(payload.instruction.fragment, payload.instruction.config.title);
 			});
 		};

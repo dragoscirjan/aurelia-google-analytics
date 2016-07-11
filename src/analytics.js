@@ -38,6 +38,7 @@ const defaultOptions = {
 		enabled: true
 	},
 	pageTracking: {
+		triggerEvent: 'router:navigation:success',
 		enabled: false
 	},
 	clickTracking: {
@@ -134,7 +135,7 @@ export class Analytics {
 	_attachPageTracker() {
 		if(!this._options.pageTracking.enabled) { return; }
 
-		this._eventAggregator.subscribe('router:navigation:success',
+		this._eventAggregator.subscribe(this._options.pageTracking.triggerEvent,
 			payload => this._trackPage(payload.instruction.fragment, payload.instruction.config.title));
 	}
 
