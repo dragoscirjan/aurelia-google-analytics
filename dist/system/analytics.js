@@ -124,6 +124,7 @@ System.register(['aurelia-dependency-injection', 'aurelia-event-aggregator', 'au
 
 					this._eventAggregator.subscribe(this._options.pageTracking.triggerEvent, function (payload) {
 						if (payload.instruction.config.title) {
+							console.log(payload);
 							_this._trackPage(payload.instruction.fragment, payload.instruction.config.title);
 						} else {
 							_this._eventAggregator.subscribe(_this._options.pageTracking.triggerCustomEvent, function (payload) {

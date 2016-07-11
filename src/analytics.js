@@ -139,6 +139,7 @@ export class Analytics {
 
 		this._eventAggregator.subscribe(this._options.pageTracking.triggerEvent, payload => {
 			if (payload.instruction.config.title) {
+				console.log(payload);
 				this._trackPage(payload.instruction.fragment, payload.instruction.config.title);
 			} else {
 				this._eventAggregator.subscribe(this._options.pageTracking.triggerCustomEvent,
